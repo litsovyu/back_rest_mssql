@@ -1,5 +1,5 @@
 {
-  "name": "backup-mssql-to-bucket",
+  "name": "back_rest_mssql",
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",

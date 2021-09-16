@@ -123,16 +123,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"backup-mssql-to-bucket@workspace:.":
+"back_rest_mssql@workspace:.":
   version: 0.0.0-use.local
-  resolution: "backup-mssql-to-bucket@workspace:."
+  resolution: "back_rest_mssql@workspace:."
   dependencies:
     "@47ng/check-env": ^2.0.2
     "@google-cloud/storage": ^5.8.0
     env-cmd: "https://github.com/toddbluhm/env-cmd.git"
     prettier-config-standard: ^1.0.1
   bin:
-    backup-mssql-to-bucket: index.js
+    back_rest_mssql: index.js
   languageName: unknown
   linkType: soft
 

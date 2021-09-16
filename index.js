@@ -7,7 +7,7 @@ import checkEnvLib from '@47ng/check-env'
 import { Storage } from '@google-cloud/storage'
 
 checkEnvLib.default({
-  required: ['DB_HOST', 'DB_NAME', 'DUMP_PATH', 'BUCKET']
+  required: ['DB_HOST', 'DB_NAME', 'DUMP_PATH', 'BUCKET', 'DB_HOST_DEST', 'DB_NAME_DEST', 'DUMP_PATH_DEST']
 })
 
 const {
