@@ -43,24 +43,23 @@ const storage = new Storage()
     console.log('file: ', file)
 
 
-    // path.resolve()`C:\Users\litsovyu\www\backup-db-to-bucket`
-    // file`test13db-ru-2021-09-17-14-55-27.bak`
-    const pathToBackup = `${path.resolve()}\\`
-    console.log(pathToBackup)
+    // f:\\file
+
+
     const result = await execPromise(
       `sqlcmd -S ${dbHost} ${dbUser ? '-U ' + dbUser : ''} ${
       //`sqlcmd -S ${dbHost}${dbPort} ${dbUser ? '-U ' + dbUser : ''} ${  
         dbPass ? '-P ' + dbPass : ''
-      }  -Q "BACKUP DATABASE [${dbName}] TO DISK='${pathToBackup}${file}'"`
+      }  -Q "BACKUP DATABASE [${dbName}] TO DISK='${dumpPath}${file}'"`
     )
-    console.log('======>',path.resolve())
     console.log('stdout: ', result)
 
-    await gzip(file)
+    await gzip(`${dumpPath}${file}`)
+    // await gzip(file)
     console.log('gziped')
 
     //await storage.bucket(bucket).upload(file, {})
-    await storage.bucket(bucket).upload(`${file}.gz`, {})
+    await storage.bucket(bucket).upload(`${dumpPath}${file}.gz`, {})
     console.log(`copied to bucket`)
 /////////////////////////////////начало творчества/////////////////////////////////////////////////////////
    // const resultcopy = await execPromise(
