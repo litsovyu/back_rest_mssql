@@ -28,12 +28,14 @@ module.exports = new Promise(resolve => {
       DB_NAME: 'temp13db',
       DB_USER: 'temp13',
       DB_PASS: 'temp13temp13',
+      DB_PORT: ',1433',
       //закидываем сюда mssql-0 
       DB_HOST_DEST: '35.228.107.70',
       DB_NAME_DEST: 'temp13dbnew',
       DB_USER_DEST: 'temp13',
       DB_PASS_DEST: 'temp13temp13',
-      DUMP_PATH_DEST: '/var/opt/mssql/'
+      DUMP_PATH_DEST: '/var/opt/mssql/',
+      DB_PORT_DEST: ',1433'
     },
     test: { NODE_ENV: 'test' },
     production: {
