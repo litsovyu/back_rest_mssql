@@ -46,7 +46,7 @@ const storage = new Storage()
       `sqlcmd -S ${dbHost} ${dbUser ? '-U ' + dbUser : ''} ${
       //`sqlcmd -S ${dbHost}${dbPort} ${dbUser ? '-U ' + dbUser : ''} ${  
         dbPass ? '-P ' + dbPass : ''
-      }  -Q "BACKUP DATABASE [${dbName}] TO DISK='${__dirname}${file}'"`
+      }  -Q "BACKUP DATABASE [${dbName}] TO DISK='${path.resolve()}\\${file}'"`
     )
     console.log('stdout: ', result)
 
