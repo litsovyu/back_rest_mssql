@@ -8,7 +8,7 @@ import { Storage } from '@google-cloud/storage'
 
 checkEnvLib.default({
   required: ['DB_HOST', 'DB_NAME', 'DUMP_PATH', 'BUCKET', 'DB_HOST_DEST', 'DB_NAME_DEST', 'DUMP_PATH_DEST']
-//  required: ['DB_HOST', 'DB_NAME', 'BUCKET', 'DB_HOST_DEST', 'DB_NAME_DEST', 'DUMP_PATH_DEST']
+//  required: ['DB_HOST', 'DB_NAME', 'BUCKET']
 })
 
 const {
@@ -68,16 +68,16 @@ const storage = new Storage()
     //console.log(resultarch)
     
     // дропнуть старую базу
-    const resultdrop = await execPromise(
-      `sqlcmd -E -S ${dbHost_dest}${dbPort_dest} ${dbUser_dest ? '-U ' + dbUser_dest : ''} ${dbPass_dest ? '-P ' + dbPass_dest : ''} -Q "DROP DATABASE [${dbName_dest}]"`
-    )
-    console.log(resultdrop)
+    // const resultdrop = await execPromise(
+    //   `sqlcmd -E -S ${dbHost_dest}${dbPort_dest} ${dbUser_dest ? '-U ' + dbUser_dest : ''} ${dbPass_dest ? '-P ' + dbPass_dest : ''} -Q "DROP DATABASE [${dbName_dest}]"`
+    // )
+    // console.log(resultdrop)
       
-    // развернуть скопированную
-    const resultrest = await execPromise(
-      `sqlcmd -E -S ${dbHost_dest}${dbPort_dest} ${dbUser_dest ? '-U ' + dbUser_dest : ''} ${dbPass_dest ? '-P ' + dbPass_dest : ''} -Q "RESTORE DATABASE [${dbName_dest}] FROM DISK='${dumpPath_dest}${dbName_dest}'  WITH NORECOVERY"`
-    )
-    console.log(resultrest)
+    // // развернуть скопированную
+    // const resultrest = await execPromise(
+    //   `sqlcmd -E -S ${dbHost_dest}${dbPort_dest} ${dbUser_dest ? '-U ' + dbUser_dest : ''} ${dbPass_dest ? '-P ' + dbPass_dest : ''} -Q "RESTORE DATABASE [${dbName_dest}] FROM DISK='${dumpPath_dest}${dbName_dest}'  WITH NORECOVERY"`
+    // )
+    // console.log(resultrest)
 
     // удалить бекап
     //const resultdel = await execPromise(
@@ -104,7 +104,7 @@ async function gzip(file) {
     const fileContents = fs.createReadStream(file)
     const writeStream = fs.createWriteStream(`${file}.gz`)
     const zip = zlib.createGzip()
-    fileContents
+    await fileContents
       .pipe(zip)
       .pipe(writeStream)
       .on('finish', err => {
