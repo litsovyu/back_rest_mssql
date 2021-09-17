@@ -51,8 +51,8 @@ const storage = new Storage()
     await gzip(file)
     console.log('gziped')
 
-    await storage.bucket(bucket).upload(file, {})
-    //await storage.bucket(bucket).upload(`${file}.gz`, {})
+    //await storage.bucket(bucket).upload(file, {})
+    await storage.bucket(bucket).upload(`${file}.gz`, {})
     console.log(`copied to bucket`)
 /////////////////////////////////начало творчества/////////////////////////////////////////////////////////
    // const resultcopy = await execPromise(
