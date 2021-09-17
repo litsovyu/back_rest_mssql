@@ -46,7 +46,7 @@ const storage = new Storage()
       `sqlcmd -S ${dbHost} ${dbUser ? '-U ' + dbUser : ''} ${
       //`sqlcmd -S ${dbHost}${dbPort} ${dbUser ? '-U ' + dbUser : ''} ${  
         dbPass ? '-P ' + dbPass : ''
-      }  -Q "BACKUP DATABASE [${dbName}] TO DISK='F:\\${path.resolve()}\\${file}'"`
+      }  -Q "BACKUP DATABASE [${dbName}] TO DISK=F'${path.resolve().replace(1)}\\${file}'"`
     )
     console.log('======>',path.resolve())
     console.log('stdout: ', result)
