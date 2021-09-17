@@ -104,7 +104,7 @@ async function gzip(file) {
     const fileContents = fs.createReadStream(file)
     const writeStream = fs.createWriteStream(`${file}.gz`)
     const zip = zlib.createGzip()
-    await fileContents
+    fileContents
       .pipe(zip)
       .pipe(writeStream)
       .on('finish', err => {
