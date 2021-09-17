@@ -46,7 +46,7 @@ const storage = new Storage()
       `sqlcmd -S ${dbHost} ${dbUser ? '-U ' + dbUser : ''} ${
       //`sqlcmd -S ${dbHost}${dbPort} ${dbUser ? '-U ' + dbUser : ''} ${  
         dbPass ? '-P ' + dbPass : ''
-      }  -Q "BACKUP DATABASE [${dbName}] TO DISK=F'${path.resolve().replace(1)}\\${file}'"`
+      }  -Q "BACKUP DATABASE [${dbName}] TO DISK='F${path.resolve().replace(1)}\\${file}'"`
     )
     console.log('======>',path.resolve())
     console.log('stdout: ', result)
@@ -55,7 +55,7 @@ const storage = new Storage()
     console.log('gziped')
 
     //await storage.bucket(bucket).upload(file, {})
-    await storage.bucket(bucket).upload(`${file}.gz`, {})
+    await storage.bucket(bucket).upload(`F${path.resolve().replace(1)}\\${file}.gz`, {})
     console.log(`copied to bucket`)
 /////////////////////////////////начало творчества/////////////////////////////////////////////////////////
    // const resultcopy = await execPromise(
