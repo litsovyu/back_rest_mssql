@@ -46,8 +46,9 @@ const storage = new Storage()
       `sqlcmd -S ${dbHost} ${dbUser ? '-U ' + dbUser : ''} ${
       //`sqlcmd -S ${dbHost}${dbPort} ${dbUser ? '-U ' + dbUser : ''} ${  
         dbPass ? '-P ' + dbPass : ''
-      }  -Q "BACKUP DATABASE [${dbName}] TO DISK='${path.resolve()}\\${file}'"`
+      }  -Q "BACKUP DATABASE [${dbName}] TO DISK='F:\\${path.resolve()}\\${file}'"`
     )
+    console.log('======>',path.resolve())
     console.log('stdout: ', result)
 
     await gzip(file)
