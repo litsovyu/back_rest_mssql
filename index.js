@@ -92,20 +92,20 @@ const storage = new Storage()
     //console.log(resultdel)    
 ///////////////////////////////////конец/////////////////////////////////////////////////////////////
   
-    fs.unlink(file, err => {
-      if (err) {
-        console.log(err)
-      }
-    })
-    fs.unlink(`${file}.gz`, err => {
-      if (err) {
-        console.log(err)
-      }
-    })
-    // const deleteBak = unlink(file)
-    // const deleteBakGz = unlink(`${file}.gz`)
+    // fs.unlink(file, err => {
+    //   if (err) {
+    //     console.log(err)
+    //   }
+    // })
+    // fs.unlink(`${file}.gz`, err => {
+    //   if (err) {
+    //     console.log(err)
+    //   }
+    // })
+    const deleteBak = unlink(file)
+    const deleteBakGz = unlink(`${file}.gz`)
 
-    // await Promise.all([deleteBak, deleteBakGz])
+    await Promise.all([deleteBak, deleteBakGz])
     console.log(`local files deleted`)
   } catch (e) {
     console.error(e)
