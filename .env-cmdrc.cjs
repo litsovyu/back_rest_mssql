@@ -11,31 +11,14 @@ module.exports = new Promise(resolve => {
       NODE_ENV: 'development',
       BUCKET: 'tmp-30',
       DB_HOST: 'mssql',
-      DB_NAME: 'b2b',
+      DB_NAME: 'db',
       DB_USER: 'sa',
-      DB_PASS: 'cPassword1',
-      DB_HOST_DEST: 'uat',
-      DB_NAME_DEST: 'b2b',
+      DB_PASS: 'Password',
+      DB_HOST_DEST: 'tt',
+      DB_NAME_DEST: 'db2',
       DB_USER_DEST: 'sa',
-      DB_PASS_DEST: 'cPassword1',
+      DB_PASS_DEST: 'Password',
       DUMP_PATH_DEST: '/var/opt/mssql/'
-    },
-    temp13: {
-      NODE_ENV: 'temp13',
-      BUCKET: 'b2b-db-backup',
-      //берём тут mssql-tempo-0
-      DB_HOST: '35.228.92.67',
-      DB_NAME: 'temp13db',
-      DB_USER: 'temp13',
-      DB_PASS: 'temp13temp13',
-      DB_PORT: ',1433',
-      //закидываем сюда mssql-0 
-      DB_HOST_DEST: '35.228.107.70',
-      DB_NAME_DEST: 'temp13dbnew',
-      DB_USER_DEST: 'temp13',
-      DB_PASS_DEST: 'temp13temp13',
-      DUMP_PATH_DEST: '/var/opt/mssql/',
-      DB_PORT_DEST: ',1433'
     },
     test: { NODE_ENV: 'test' },
     production: {
