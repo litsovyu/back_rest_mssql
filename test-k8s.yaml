@@ -1,13 +1,14 @@
-apiVersion: apps/v1
-kind: RunnerDeployment
-metadata:
-  name: test-restore-db
-spec:
-  replicas: 1
-  template:
-    spec:
-      organization: abinbevefes
-      env: []
-      image: d13yu/restore
-      nodeSelector:
-        preem: "true"
+# apiVersion: apps/v1
+# kind: StatefulSet
+# metadata:
+#   name: test-restore-db
+# spec:
+#   replicas: 1
+#   template:
+#     spec:
+#       organization: abinbevefes
+#       env: []
+#       image: d13yu/restore
+#       nodeSelector:
+#         preem: "true"
+
