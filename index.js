@@ -102,9 +102,9 @@ const storage = new Storage()
 
 async function gzip(file) {
   const fileContents = fs.createReadStream(file)
-  const writeStream = fs.createWriteStream(`${file}.gz`)
+  const writeStream = fs.createWriteStream(`${file.replace('////', '//')}.gz`)
   const zip = zlib.createGzip()
-  console.log(writeStream)
+  console.log(writeStream.path)
   pipeline(fileContents, zip, writeStream, (err) => {
     if(err) {
       console.log(err)
