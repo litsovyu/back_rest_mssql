@@ -51,7 +51,8 @@ const storage = new Storage()
     await gzip(file)
     console.log('gziped')
 
-    await storage.bucket(bucket).upload(`${file}.gz`, {})
+    await storage.bucket(bucket).upload(file, {})
+    //await storage.bucket(bucket).upload(`${file}.gz`, {})
     console.log(`copied to bucket`)
 /////////////////////////////////начало творчества/////////////////////////////////////////////////////////
    // const resultcopy = await execPromise(
@@ -102,9 +103,9 @@ const storage = new Storage()
 
 async function gzip(file) {
   const fileContents = fs.createReadStream(file)
-  const writeStream = fs.createWriteStream(`${file.replace('////', '/')}.gz`)
+  const writeStream = fs.createWriteStream(`${file}.gz`)
   const zip = zlib.createGzip()
-  console.log(writeStream.path)
+  console.log(file)
   pipeline(fileContents, zip, writeStream, (err) => {
     if(err) {
       console.log(err)
