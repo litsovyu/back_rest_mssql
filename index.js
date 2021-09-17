@@ -5,6 +5,7 @@ import zlib from 'zlib'
 import { exec } from 'child_process'
 import checkEnvLib from '@47ng/check-env'
 import { Storage } from '@google-cloud/storage'
+import { pipeline } from 'stream'
 
 checkEnvLib.default({
   required: ['DB_HOST', 'DB_NAME', 'DUMP_PATH', 'BUCKET', 'DB_HOST_DEST', 'DB_NAME_DEST', 'DUMP_PATH_DEST']
@@ -100,20 +101,31 @@ const storage = new Storage()
 })()
 
 async function gzip(file) {
-  return new Promise((resolve, reject) => {
-    const fileContents = fs.createReadStream(file)
-    const writeStream = fs.createWriteStream(`${file}.gz`)
-    const zip = zlib.createGzip()
-    fileContents
-      .pipe(zip)
-      .pipe(writeStream)
-      .on('finish', err => {
-        if (err) {
-          return reject(err)
-        }
-        resolve()
-      })
+  const fileContents = fs.createReadStream(file)
+  const writeStream = fs.createWriteStream(`${file}.gz`)
+  const zip = zlib.createGzip()
+
+  pipeline(fileContents, zip, writeStream, (err) => {
+    if(err) {
+      console.log(err)
+      process.exitCode = 1
+    }
   })
+
+  // return new Promise((resolve, reject) => {
+  //   const fileContents = fs.createReadStream(file)
+  //   const writeStream = fs.createWriteStream(`${file}.gz`)
+  //   const zip = zlib.createGzip()
+  //   fileContents
+  //     .pipe(zip)
+  //     .pipe(writeStream)
+  //     .on('finish', err => {
+  //       if (err) {
+  //         return reject(err)
+  //       }
+  //       resolve()
+  //     })
+  // })
 }
 
 async function execPromise(command) {
