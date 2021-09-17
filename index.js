@@ -6,6 +6,7 @@ import { exec } from 'child_process'
 import checkEnvLib from '@47ng/check-env'
 import { Storage } from '@google-cloud/storage'
 import { pipeline } from 'stream'
+import path from 'path'
 
 checkEnvLib.default({
   required: ['DB_HOST', 'DB_NAME', 'DUMP_PATH', 'BUCKET']
@@ -45,7 +46,7 @@ const storage = new Storage()
       `sqlcmd -S ${dbHost} ${dbUser ? '-U ' + dbUser : ''} ${
       //`sqlcmd -S ${dbHost}${dbPort} ${dbUser ? '-U ' + dbUser : ''} ${  
         dbPass ? '-P ' + dbPass : ''
-      }  -Q "BACKUP DATABASE [${dbName}] TO DISK='${file}'"`
+      }  -Q "BACKUP DATABASE [${dbName}] TO DISK='${path.join(__dirname, file)}'"`
     )
     console.log('stdout: ', result)
 
