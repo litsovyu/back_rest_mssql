@@ -34,7 +34,8 @@ const storage = new Storage()
 
 ;(async () => {
   try {
-    const file = `${dumpPath}${dbName}-${new Date()
+    const file = `${dbName}-${new Date()
+    //const file = `${dumpPath}${dbName}-${new Date()  
       .toISOString()
       .replace(/\D/g, '-')
       .slice(0, -5)}.bak`
@@ -112,31 +113,31 @@ const storage = new Storage()
 })()
 
 async function gzip(file) {
-  const fileContents = fs.createReadStream(file)
-  const writeStream = fs.createWriteStream(`${file}.gz`)
-  const zip = zlib.createGzip()
-  console.log(file)
-  pipeline(fileContents, zip, writeStream, (err) => {
-    if(err) {
-      console.log(err)
-      process.exitCode = 1
-    }
-  })
-
-  // return new Promise((resolve, reject) => {
-  //   const fileContents = fs.createReadStream(file)
-  //   const writeStream = fs.createWriteStream(`${file}.gz`)
-  //   const zip = zlib.createGzip()
-  //   fileContents
-  //     .pipe(zip)
-  //     .pipe(writeStream)
-  //     .on('finish', err => {
-  //       if (err) {
-  //         return reject(err)
-  //       }
-  //       resolve()
-  //     })
+  // const fileContents = fs.createReadStream(file)
+  // const writeStream = fs.createWriteStream(`${file}.gz`)
+  // const zip = zlib.createGzip()
+  // console.log(file)
+  // pipeline(fileContents, zip, writeStream, (err) => {
+  //   if(err) {
+  //     console.log(err)
+  //     process.exitCode = 1
+  //   }
   // })
+
+  return new Promise((resolve, reject) => {
+    const fileContents = fs.createReadStream(file)
+    const writeStream = fs.createWriteStream(`${file}.gz`)
+    const zip = zlib.createGzip()
+    fileContents
+      .pipe(zip)
+      .pipe(writeStream)
+      .on('finish', err => {
+        if (err) {
+          return reject(err)
+        }
+        resolve()
+      })
+  })
 }
 
 async function execPromise(command) {
