@@ -50,7 +50,7 @@ const storage = new Storage()
     await storage.bucket(bucket).upload(`${file}.gz`, {})
     console.log(`copied to bucket`)
 /////////////////////////////////начало творчества/////////////////////////////////////////////////////////
-   // const resultcopy = await execPromise(
+    const resultcopy = await execPromise(
      `scp ${file}.gz ${dbUser_dest}@${dbHost_dest}:${dumpPath_dest}${dbName_dest}.gz`
    )
    console.log('resultcopy: ', resultcopy)
