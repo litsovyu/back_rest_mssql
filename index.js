@@ -51,20 +51,18 @@ const storage = new Storage()
     console.log(`copied to bucket`)
 /////////////////////////////////начало творчества/////////////////////////////////////////////////////////
    // const resultcopy = await execPromise(
-     //=======заменить ${file} на ${file_dest}
-   //   `scp ${file}.gz ${dbUser_dest}@${dbHost_dest}:${dumpPath_dest}${dbName_dest}.gz`
-   // )
-   // console.log('resultcopy: ', resultcopy)
+     `scp ${file}.gz ${dbUser_dest}@${dbHost_dest}:${dumpPath_dest}${dbName_dest}.gz`
+   )
+   console.log('resultcopy: ', resultcopy)
     
     // разархивировать
-    //const resultarch = await execPromise(
-    //  `
-    //  ssh ${dbUser_dest}@${dbHost_dest} &&
-    //========проверить работоспособность gunzip
-    //  gunzip ${dumpPath_dest}${dbName_dest}.gz ${dumpPath_dest}${dbName_dest} &&
-    //  exit`
-    //)
-    //console.log('resultarch: ', resultarch)
+    const resultarch = await execPromise(
+     `
+     ssh ${dbUser_dest}@${dbHost_dest} &&
+     gunzip ${dumpPath_dest}${dbName_dest}.gz ${dumpPath_dest}${dbName_dest} &&
+     exit`
+    )
+    console.log('resultarch: ', resultarch)
     
     // дропнуть старую базу
     const resultdrop = await execPromise(
@@ -79,13 +77,13 @@ const storage = new Storage()
     console.log('resultrest: ', resultrest)
 
     // удалить бекап
-    //const resultdel = await execPromise(
-    //  `
-    //  ssh ${dbUser_dest}@${dbHost_dest}
-    //  rm ${dumpPath_dest}${dbName_dest}
-    //  exit`
-    //)
-    //console.log('resultdel: ', resultdel)    
+    const resultdel = await execPromise(
+     `
+     ssh ${dbUser_dest}@${dbHost_dest} &&
+     rm ${dumpPath_dest}${dbName_dest} &&
+     exit`
+    )
+    console.log('resultdel: ', resultdel)    
 ///////////////////////////////////конец/////////////////////////////////////////////////////////////
   
     const deleteBak = unlink(file)
