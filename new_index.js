@@ -51,32 +51,30 @@ const storage = new Storage()
     console.log(`copied to bucket`)
 /////////////////////////////////начало творчества/////////////////////////////////////////////////////////
    // const resultcopy = await execPromise(
-     //=======заменить ${file} на ${file_dest}
-   //   `scp ${file}.gz ${dbUser_dest}@${dbHost_dest}:${dumpPath_dest}${dbName_dest}.gz`
+   //   `scp ${file}.gz ${dbUser_dest}@${dbHost_dest}:${dumpPath_dest}${file}.gz`
    // )
-   // console.log('resultcopy: ', resultcopy)
+   // console.log(resultcopy)
     
     // разархивировать
     //const resultarch = await execPromise(
     //  `
     //  ssh ${dbUser_dest}@${dbHost_dest} &&
-    //========проверить работоспособность gunzip
-    //  gunzip ${dumpPath_dest}${dbName_dest}.gz ${dumpPath_dest}${dbName_dest} &&
+    //  gunzip ${dumpPath_dest}${file}.gz ${dumpPath_dest}${dbName_dest} &&
     //  exit`
     //)
-    //console.log('resultarch: ', resultarch)
+    //console.log(resultarch)
     
     // дропнуть старую базу
     const resultdrop = await execPromise(
       `sqlcmd -E -S ${dbHost_dest} ${dbUser_dest ? '-U ' + dbUser_dest : ''} ${dbPass_dest ? '-P ' + dbPass_dest : ''} -Q "DROP DATABASE [${dbName_dest}]"`
     )
-    console.log('resultdrop: ', resultdrop)
+    console.log(resultdrop)
       
     // развернуть скопированную
     const resultrest = await execPromise(
       `sqlcmd -E -S ${dbHost_dest} ${dbUser_dest ? '-U ' + dbUser_dest : ''} ${dbPass_dest ? '-P ' + dbPass_dest : ''} -Q "RESTORE DATABASE [${dbName_dest}] FROM DISK='${dumpPath_dest}${dbName_dest}'  WITH NORECOVERY"`
     )
-    console.log('resultrest: ', resultrest)
+    console.log(resultrest)
 
     // удалить бекап
     //const resultdel = await execPromise(
@@ -85,7 +83,7 @@ const storage = new Storage()
     //  rm ${dumpPath_dest}${dbName_dest}
     //  exit`
     //)
-    //console.log('resultdel: ', resultdel)    
+    //console.log(resultdel)    
 ///////////////////////////////////конец/////////////////////////////////////////////////////////////
   
     const deleteBak = unlink(file)
